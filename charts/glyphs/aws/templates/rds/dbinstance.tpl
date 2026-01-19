@@ -48,8 +48,8 @@ spec:
   copyTagsToSnapshot: true
 
   # Updates and maintenance
-  autoMinorVersionUpgrade: true
-  deletionProtection: false
+  autoMinorVersionUpgrade: false
+  deletionProtection: false # esto tiene que ser true (despues)
 
   # Tags
   tags:
