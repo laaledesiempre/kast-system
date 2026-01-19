@@ -8,6 +8,8 @@ apiVersion: rds.services.k8s.aws/v1alpha1
 kind: DBSubnetGroup
 metadata:
   name: rwg-dev-gen-us-west-1
+  annotations:
+    services.k8s.aws/adoption-policy: adopt
 spec:
   name: rwg-dev-gen-us-west-1
   description: "Subnet group for RDS PostgreSQL in development"

@@ -8,6 +8,8 @@ apiVersion: rds.services.k8s.aws/v1alpha1
 kind: DBParameterGroup
 metadata:
   name: postgres-dev-params
+  annotations:
+    services.k8s.aws/adoption-policy: adopt
 spec:
   name: postgres-dev-params
   description: "Parameter group for PostgreSQL 15 development instances"
