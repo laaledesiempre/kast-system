@@ -12,8 +12,8 @@ metadata:
     services.k8s.aws/adoption-policy: adopt
 spec:
   name: postgres-dev-params
-  description: "Parameter group for PostgreSQL 15 development instances"
-  family: postgres15
+  description: "Parameter group for PostgreSQL 16 development instances"
+  family: postgres16
 
   parameterOverrides:
     max_connections: "200"
@@ -39,4 +39,4 @@ spec:
     - key: Application
       value: routeware
     - key: Family
-      value: postgres15
+      value: postgres16
