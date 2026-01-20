@@ -39,7 +39,7 @@ spec:
 
   # High availability
   multiAZ: false
-  availabilityZone: us-west-1a
+  availabilityZone: us-west-1b
 
   # Backup configuration
   backupRetentionPeriod: 7
