@@ -12,7 +12,7 @@ spec:
   dbInstanceIdentifier: postgres-dev-instance
   dbInstanceClass: db.t3.micro
   engine: postgres
-  engineVersion: "18.1-R1"
+  engineVersion: "18.1"
 
   # Storage configuration
   allocatedStorage: 20
