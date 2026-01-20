@@ -39,7 +39,7 @@ spec:
 
   # High availability
   multiAZ: false
-  availabilityZone: us-west-1b
+  # availabilityZone omitted - let AWS choose a valid one
 
   # Backup configuration
   backupRetentionPeriod: 7
