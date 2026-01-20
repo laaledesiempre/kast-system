@@ -8,12 +8,10 @@ apiVersion: rds.services.k8s.aws/v1alpha1
 kind: DBParameterGroup
 metadata:
   name: postgres-dev-params
-  annotations:
-    services.k8s.aws/adoption-policy: adopt
 spec:
   name: postgres-dev-params
-  description: "Parameter group for PostgreSQL 16 development instances"
-  family: postgres16
+  description: "Parameter group for PostgreSQL 18 development instances"
+  family: postgres18
 
   parameterOverrides:
     max_connections: "200"
@@ -39,4 +37,4 @@ spec:
     - key: Application
       value: routeware
     - key: Family
-      value: postgres16
+      value: postgres18
