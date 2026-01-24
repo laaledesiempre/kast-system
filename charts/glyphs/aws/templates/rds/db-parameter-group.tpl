@@ -15,6 +15,7 @@ spec:
   description: "Parameter group for PostgreSQL 18 development instances"
   family: postgres18
 
+  # Parameter overrides
   parameterOverrides:
     max_connections: "200"
     shared_buffers: "256MB"
@@ -29,6 +30,7 @@ spec:
     min_wal_size: "1GB"
     max_wal_size: "4GB"
 
+  # Tags
   tags:
     - key: Name
       value: postgres-dev-params

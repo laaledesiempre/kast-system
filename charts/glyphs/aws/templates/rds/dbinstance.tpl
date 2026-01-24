@@ -29,11 +29,16 @@ spec:
   # Database name
   dbName: routeware_dev
 
-  # Networking
+  # Networking - Subnet Group
   dbSubnetGroupName: rwg-dev-gen-us-west-1
+
+  # Parameter Group
   dbParameterGroupName: postgres-dev-params
+
+  # Security Groups
   vpcSecurityGroupIDs:
     - sg-01692d6e6ddb9a72d
+
   publiclyAccessible: false
   port: 5432
 

@@ -13,10 +13,14 @@ metadata:
 spec:
   name: rwg-dev-gen-us-west-1
   description: "Subnet group for RDS PostgreSQL in development"
+
+  # Subnet IDs
   subnetIDs:
     - subnet-020c291c17b70abb2
     - subnet-05099042d609b034a
     - subnet-0e14f81fc7072d83c
+
+  # Tags
   tags:
     - key: Name
       value: routeware-dev-db-subnet-group
