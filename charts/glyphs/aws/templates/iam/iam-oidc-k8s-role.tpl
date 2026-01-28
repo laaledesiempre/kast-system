@@ -67,7 +67,7 @@ spec:
   {{- $policies := get (include "runicIndexer.runicIndexer" (list $root.Values.lexicon (default dict $policy.selector ) "aws-iam-policy" $root.Values.chapter.name ) | fromJson) "results" }}
     {{- range $policyResult := $policies }}
     - {{ $policyResult.arn }}
-    {{- end }}
+    {{- end }}  
   {{- end }}
   {{- with $glyphDefinition.tags }}
   tags:
