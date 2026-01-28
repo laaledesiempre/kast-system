@@ -25,10 +25,17 @@ spec:
 
   {{- /* Public Access Block - defaults to blocking all public access */}}
   publicAccessBlock:
+    {{- if $glyphDefinition.publicAccessBlock }}
     blockPublicACLs: {{ default true $glyphDefinition.publicAccessBlock.blockPublicACLs }}
     blockPublicPolicy: {{ default true $glyphDefinition.publicAccessBlock.blockPublicPolicy }}
     ignorePublicACLs: {{ default true $glyphDefinition.publicAccessBlock.ignorePublicACLs }}
     restrictPublicBuckets: {{ default true $glyphDefinition.publicAccessBlock.restrictPublicBuckets }}
+    {{- else }}
+    blockPublicACLs: true
+    blockPublicPolicy: true
+    ignorePublicACLs: true
+    restrictPublicBuckets: true
+    {{- end }}
 
   {{- /* Ownership Controls */}}
   {{- if $glyphDefinition.ownershipControls }}
