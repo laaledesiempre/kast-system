@@ -1,0 +1,28 @@
+name: ack-s3-controller-test
+
+lexicon:
+  dev-eks-cluster:
+    type: k8s-cluster
+    labels:
+      environment: dev
+      default: book
+    oidcID: AE280A8EC0804A46D65241CEED3D3454
+    region: us-west-1
+    accountID: "323636678935"
+
+glyphs:
+  aws:
+    rwg-dev-eks-ack-s3-controller:
+      type: ack-s3-controller
+      namespace: ack-system
+      serviceAccountName: ack-s3-controller
+      permissionsBoundary: arn:aws:iam::323636678935:policy/ack/rwg-dev-eks-ack-permissions-boundary
+      tags:
+        - key: Name
+          value: rwg-dev-eks-ack-s3-controller
+        - key: ManagedBy
+          value: ack-iam-controller
+        - key: Cluster
+          value: rwg-dev-eks
+        - key: Environment
+          value: dev

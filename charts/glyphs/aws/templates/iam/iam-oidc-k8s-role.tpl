@@ -46,7 +46,7 @@ spec:
           "Action": "sts:AssumeRoleWithWebIdentity",
           "Condition": {
             "StringEquals": {
-              "oidc.eks.{{ $glyphDefinition.region }}.amazonaws.com/id/{{ default $k8sCluster.oidcID $glyphDefinition.oidcID }}:sub": [
+              "oidc.eks.{{ default $k8sCluster.region $glyphDefinition.region }}.amazonaws.com/id/{{ default $k8sCluster.oidcID $glyphDefinition.oidcID }}:sub": [
                 {{- if $glyphDefinition.serviceAccounts }}
                 {{- range $index, $sa := $glyphDefinition.serviceAccounts }}
                 {{- if $index }},{{ end }}
@@ -56,7 +56,7 @@ spec:
                 "system:serviceaccount:{{ default $root.Release.Namespace  $glyphDefinition.namespace }}:{{ default (include "common.name" $root) $glyphDefinition.nameOverride }}"
                 {{- end }}
               ],
-              "oidc.eks.{{ $glyphDefinition.region }}.amazonaws.com/id/{{ default $k8sCluster.oidcID $glyphDefinition.oidcID }}:aud": "sts.amazonaws.com"
+              "oidc.eks.{{ default $k8sCluster.region $glyphDefinition.region }}.amazonaws.com/id/{{ default $k8sCluster.oidcID $glyphDefinition.oidcID }}:aud": "sts.amazonaws.com"
             }
           }
         }
