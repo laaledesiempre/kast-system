@@ -18,7 +18,7 @@ Licensed under the GNU GPL v3. See LICENSE file for details.
 apiVersion: iam.services.k8s.aws/v1alpha1
 kind: Role
 metadata:
-  name: {{ $glyphDefinition.name }}-role
+  name: {{ $glyphDefinition.name }}
   namespace: {{ $namespace }}
   labels:
     {{- include "common.all.labels" $root | nindent 4 }}
@@ -27,7 +27,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:
-  name: {{ $glyphDefinition.name }}-role
+  name: {{ $glyphDefinition.name }}
   path: {{ $path }}
   description: {{ default (printf "IAM Role for %s" $controllerName) $glyphDefinition.roleDescription | quote }}
   {{- with $glyphDefinition.permissionsBoundary }}
@@ -53,7 +53,7 @@ spec:
       ]
     }
   policies:
-    - arn:aws:iam::{{ $accountID }}:policy{{ $path }}{{ $glyphDefinition.name }}-policy
+    - arn:aws:iam::{{ $accountID }}:policy{{ $path }}{{ $glyphDefinition.name }}-iam-policy
   {{- if $glyphDefinition.tags }}
   tags:
     {{- range $glyphDefinition.tags }}
@@ -63,7 +63,7 @@ spec:
   {{- else }}
   tags:
     - key: Name
-      value: {{ $glyphDefinition.name }}-role
+      value: {{ $glyphDefinition.name }}
     - key: ManagedBy
       value: ack-iam-controller
     - key: Component
@@ -73,7 +73,7 @@ spec:
 apiVersion: iam.services.k8s.aws/v1alpha1
 kind: Policy
 metadata:
-  name: {{ $glyphDefinition.name }}-policy
+  name: {{ $glyphDefinition.name }}-iam-policy
   namespace: {{ $namespace }}
   labels:
     {{- include "common.all.labels" $root | nindent 4 }}
@@ -82,7 +82,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:
-  name: {{ $glyphDefinition.name }}-policy
+  name: {{ $glyphDefinition.name }}-iam-policy
   path: {{ $path }}
   description: {{ default (printf "IAM Policy for %s to manage S3 resources" $controllerName) $glyphDefinition.policyDescription | quote }}
   policyDocument: |
@@ -168,7 +168,7 @@ spec:
   {{- else }}
   tags:
     - key: Name
-      value: {{ $glyphDefinition.name }}-policy
+      value: {{ $glyphDefinition.name }}-iam-policy
     - key: ManagedBy
       value: ack-iam-controller
     - key: Component
