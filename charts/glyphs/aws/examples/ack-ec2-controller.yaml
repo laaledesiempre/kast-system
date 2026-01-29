@@ -1,4 +1,4 @@
-name: ack-s3-controller-test
+name: ack-ec2-controller-test
 
 lexicon:
   test-eks-cluster:
@@ -12,12 +12,12 @@ lexicon:
 
 glyphs:
   aws:
-    my-ack-s3-controller:
-      type: ack-s3-controller
+    my-ack-ec2-controller:
+      type: ack-ec2-controller
       permissionsBoundary: arn:aws:iam::123456789012:policy/my-permissions-boundary
       tags:
         - key: Name
-          value: my-ack-s3-controller
+          value: my-ack-ec2-controller
         - key: ManagedBy
           value: ack-iam-controller
         - key: Environment
