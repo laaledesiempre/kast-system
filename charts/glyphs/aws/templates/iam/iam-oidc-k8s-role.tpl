@@ -31,8 +31,15 @@ spec:
   path: {{ . }}
   {{- end }}
   description: "{{ default (include "common.name" $root) $glyphDefinition.description }}"
-  {{- with $glyphDefinition.permissionsBoundary }}
-  permissionsBoundary: {{ . }}
+  {{- if $glyphDefinition.permissionsBoundary }}
+    {{- if $glyphDefinition.permissionsBoundary.selector }}
+      {{- $boundaries := get (include "runicIndexer.runicIndexer" (list $root.Values.lexicon $glyphDefinition.permissionsBoundary.selector "aws-permissions-boundary" $root.Values.chapter.name ) | fromJson) "results" }}
+      {{- range $boundary := $boundaries }}
+  permissionsBoundary: {{ $boundary.arn }}
+      {{- end }}
+    {{- else }}
+  permissionsBoundary: {{ $glyphDefinition.permissionsBoundary }}
+    {{- end }}
   {{- end }}
   assumeRolePolicyDocument: |
     {
@@ -69,12 +76,30 @@ spec:
     - {{ $policyResult.arn }}
     {{- end }}  
   {{- end }}
-  {{- with $glyphDefinition.tags }}
   tags:
-    {{- range . }}
+    - key: Name
+      value: {{ default (include "common.name" $root) $glyphDefinition.name }}
+    - key: ManagedBy
+      value: ack-iam-controller
+    {{- if $k8sCluster.clusterName }}
+    - key: Cluster
+      value: {{ $k8sCluster.clusterName }}
+    {{- end }}
+    {{- if $k8sCluster.labels.environment }}
+    - key: Environment
+      value: {{ $k8sCluster.labels.environment }}
+    {{- end }}
+    {{- if $root.Values.book }}
+    - key: Application
+      value: {{ $root.Values.book.name }}
+    {{- end }}
+    {{- with $glyphDefinition.component }}
+    - key: Component
+      value: {{ . }}
+    {{- end }}
+    {{- range $glyphDefinition.tags }}
     - key: {{ .key }}
       value: {{ .value }}
     {{- end }}
-  {{- end }}
 {{- end }}
 {{- end }}
