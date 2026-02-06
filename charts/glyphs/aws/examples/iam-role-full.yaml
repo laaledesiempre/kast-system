@@ -18,6 +18,12 @@ lexicon:
       environment: development
       region: us-west-1
       provider: aws
+  eks-ack-boundary:
+    type: aws-permissions-boundary
+    arn: arn:aws:iam::123456789012:policy/ack/eks-ack-permissions-boundary
+    labels:
+      environment: development
+      scope: ack
 
 glyphs:
   aws:
@@ -27,8 +33,9 @@ glyphs:
       namespace: cert-manager
       path: /ack/
       description: "IAM Role for cert-manager and external-dns to manage Route53 DNS records"
-      permissionsBoundary: arn:aws:iam::123456789012:policy/ack/eks-ack-permissions-boundary
-      oidcID: 
+      permissionsBoundary:
+        scope: ack
+      oidcID:
       region: us-west-1
       serviceAccounts:
         - namespace: cert-manager

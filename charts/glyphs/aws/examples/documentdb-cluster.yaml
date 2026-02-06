@@ -1,0 +1,59 @@
+# Example: DocumentDB cluster + instances via ACK
+glyphs:
+  aws:
+    # Cluster definition
+    content-store:
+      type: documentdb-cluster
+      dbClusterIdentifier: content-store
+      engineVersion: "5.0.0"
+      masterUsername: admin
+      masterUserPassword:
+        name: docdb-master-secret
+        key: password
+      port: 27017
+      dbSubnetGroupName: private-db-subnets
+      securityGroups:
+        - id: sg-docdb001
+      backupRetentionPeriod: 14
+      preferredBackupWindow: "02:00-03:00"
+      preferredMaintenanceWindow: "sun:04:00-sun:05:00"
+      storageEncrypted: true
+      deletionProtection: true
+      enableCloudwatchLogsExports:
+        - audit
+        - profiler
+      tags:
+        - key: Environment
+          value: production
+        - key: Team
+          value: platform
+
+    # Cluster instances (3 nodes)
+    content-store-instances:
+      type: documentdb-instance
+      dbClusterIdentifier: content-store
+      instanceCount: 3
+      instanceClass: db.r6g.large
+      autoMinorVersionUpgrade: true
+      tags:
+        - key: Environment
+          value: production
+
+    # Minimal DocumentDB with runicIndexer for networking
+    logs-store:
+      type: documentdb-cluster
+      dbClusterIdentifier: logs-store
+      masterUsername: admin
+      masterUserPassword:
+        name: docdb-logs-secret
+        key: password
+      subnetGroup:
+        selector:
+          tier: private
+          environment: staging
+      securityGroups:
+        - selector:
+            role: documentdb
+            environment: staging
+      backupRetentionPeriod: 3
+      storageEncrypted: true

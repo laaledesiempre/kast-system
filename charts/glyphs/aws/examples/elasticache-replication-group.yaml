@@ -1,0 +1,50 @@
+# Example: ElastiCache (Redis/Valkey) replication group via ACK
+glyphs:
+  aws:
+    session-cache:
+      type: elasticache-replication-group
+      replicationGroupID: session-cache
+      description: "Session cache for web application"
+      engine: redis
+      engineVersion: "7.1"
+      nodeType: cache.t3.medium
+      numCacheClusters: 3
+      automaticFailoverEnabled: true
+      multiAZEnabled: true
+      port: 6379
+      cacheSubnetGroupName: private-subnets
+      securityGroupIDs:
+        - sg-redis001
+      atRestEncryptionEnabled: true
+      transitEncryptionEnabled: true
+      snapshotRetentionLimit: 7
+      snapshotWindow: "03:00-04:00"
+      preferredMaintenanceWindow: "sun:05:00-sun:06:00"
+      tags:
+        - key: Environment
+          value: production
+        - key: Team
+          value: platform
+
+    # Cluster mode (sharded) with runicIndexer
+    order-cache:
+      type: elasticache-replication-group
+      replicationGroupID: order-cache
+      engine: redis
+      engineVersion: "7.1"
+      nodeType: cache.r6g.large
+      numNodeGroups: 3
+      replicasPerNodeGroup: 2
+      subnetGroup:
+        selector:
+          tier: private
+          environment: production
+      securityGroups:
+        - selector:
+            role: redis
+            environment: production
+      authToken:
+        name: redis-auth-secret
+        key: password
+      atRestEncryptionEnabled: true
+      transitEncryptionEnabled: true

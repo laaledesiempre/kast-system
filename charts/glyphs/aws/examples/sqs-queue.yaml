@@ -1,0 +1,36 @@
+# Example: SQS Queue provisioned via ACK
+glyphs:
+  aws:
+    order-events-queue:
+      type: sqs-queue
+      queueName: order-events
+      visibilityTimeout: "60"
+      messageRetentionPeriod: "345600"  # 4 days
+      encryption:
+        sqsManaged: true
+      tags:
+        Environment: production
+        Team: ecommerce
+
+    # FIFO queue with deduplication
+    payment-processing-fifo:
+      type: sqs-queue
+      queueName: payment-processing.fifo
+      fifo: true
+      contentBasedDeduplication: "true"
+      visibilityTimeout: "120"
+      maximumMessageSize: "262144"  # 256KB
+      tags:
+        Environment: production
+        Team: payments
+
+    # Queue with dead letter queue
+    notification-queue:
+      type: sqs-queue
+      queueName: notifications
+      redrivePolicy:
+        deadLetterTargetArn: "arn:aws:sqs:us-east-1:123456789:notifications-dlq"
+        maxReceiveCount: 3
+      encryption:
+        kmsKeyID: "alias/sqs-key"
+        kmsDataKeyReusePeriodSeconds: "300"

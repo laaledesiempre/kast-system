@@ -31,14 +31,10 @@ spec:
   path: {{ . }}
   {{- end }}
   description: "{{ default (include "common.name" $root) $glyphDefinition.description }}"
-  {{- if $glyphDefinition.permissionsBoundary }}
-    {{- if $glyphDefinition.permissionsBoundary.selector }}
-      {{- $boundaries := get (include "runicIndexer.runicIndexer" (list $root.Values.lexicon $glyphDefinition.permissionsBoundary.selector "aws-permissions-boundary" $root.Values.chapter.name ) | fromJson) "results" }}
-      {{- range $boundary := $boundaries }}
+  {{- with $glyphDefinition.permissionsBoundary }}
+    {{- $boundaries := get (include "runicIndexer.runicIndexer" (list $root.Values.lexicon (default dict .) "aws-permissions-boundary" $root.Values.chapter.name ) | fromJson) "results" }}
+    {{- range $boundary := $boundaries }}
   permissionsBoundary: {{ $boundary.arn }}
-      {{- end }}
-    {{- else }}
-  permissionsBoundary: {{ $glyphDefinition.permissionsBoundary }}
     {{- end }}
   {{- end }}
   assumeRolePolicyDocument: |

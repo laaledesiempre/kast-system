@@ -1,0 +1,46 @@
+# Example: MSK (Managed Streaming for Kafka) cluster via ACK
+glyphs:
+  aws:
+    event-streaming:
+      type: msk-cluster
+      clusterName: events-cluster
+      kafkaVersion: "3.6.0"
+      numberOfBrokerNodes: 3
+      instanceType: kafka.m5.large
+      storageSize: 200  # GB per broker
+      clientSubnets:
+        - subnet-abc123
+        - subnet-def456
+        - subnet-ghi789
+      securityGroups:
+        - id: sg-kafka001
+      authentication:
+        sasl:
+          iam: true
+          scram: false
+        unauthenticated:
+          enabled: false
+      encryption:
+        inTransit:
+          clientBroker: TLS
+          inCluster: true
+      enhancedMonitoring: PER_TOPIC_PER_BROKER
+      tags:
+        Environment: production
+        Team: platform
+
+    # Minimal MSK cluster with runicIndexer selectors
+    logs-streaming:
+      type: msk-cluster
+      clusterName: logs-cluster
+      kafkaVersion: "3.5.1"
+      numberOfBrokerNodes: 3
+      instanceType: kafka.t3.small
+      storageSize: 50
+      subnetSelector:
+        tier: private
+        environment: production
+      securityGroups:
+        - selector:
+            role: kafka
+            environment: production
