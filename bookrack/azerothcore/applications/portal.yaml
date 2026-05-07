@@ -9,6 +9,9 @@ image:
   tag: latest
   pullPolicy: Always
 
+podAnnotations:
+  deploy.fwhq.com.ar/restartedAt: "2026-05-07T17:58:00Z"
+
 workload: Deployment
 replicaCount: 1
 
