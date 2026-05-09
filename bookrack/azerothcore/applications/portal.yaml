@@ -23,7 +23,7 @@ ports:
 envs:
   MYSQL_HOST: azerothcore-mysql
   MYSQL_PORT: "3306"
-  MYSQL_USER: acore
+  MYSQL_USER: portal
   MYSQL_DB: acore_auth
   SOAP_HOST: azerothcore-worldserver
   SOAP_PORT: "7878"
@@ -88,7 +88,7 @@ glyphs:
           namespace: azerothcore
         type: Opaque
         stringData:
-          MYSQL_PASSWORD: "acoreauthpass"
+          MYSQL_PASSWORD: "kqlkU0fj4bJ4R604RjILKmnpqAV4xdxH"
           SOAP_PASSWORD: "admin"
           SECRET_KEY: "0e3fa6b2ffd50ad39bf44ad17962e67f27be5bec9a8e1631b0a7473273c4e235"
   istio:
