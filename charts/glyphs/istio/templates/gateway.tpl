@@ -43,7 +43,7 @@ spec:
         mode: SIMPLE
         credentialName: {{ default ( print (include "common.name" $root ) "-" $glyphDefinition.tls.issuerName "-cert" ) $glyphDefinition.tls.secretName }}
         {{- end }}
-        {{- if and (eq $port.protocol "HTTP" ) (default "True" $port.httpsRedirect) }}
+        {{- if and (eq $port.protocol "HTTP" ) (not (eq false $port.httpsRedirect)) }}
       tls:
         httpsRedirect: true # sends 301 redirect for http requests
         {{- end }}
